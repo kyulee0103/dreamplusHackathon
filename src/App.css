@@ -55,8 +55,13 @@ body {
 
 a {
     text-decoration: none;
+    -webkit-user-drag: none;
 }
 
 p {
     margin: 0;
+}
+
+img {
+    -webkit-user-drag: none;
 }

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Total = styled.div`
-    margin-top: 133px;
+    margin-top: 123px;
 
     p {
         font-weight: 700;

@@ -1,9 +1,8 @@
 import {atom, selector} from 'recoil'
 
 export interface ISearchState {
-    chainBtn: boolean
-    content: string
     whichChain?: string
+    content?: string
 }
 
 export interface IWallet {
@@ -17,9 +16,12 @@ export const setAddress = atom<IWallet>({
     },
 })
 
-export const searchState = atom<ISearchState[]>({
+export const searchState = atom<ISearchState>({
     key: 'search',
-    default: [],
+    default: {
+        whichChain: '',
+        content: '',
+    },
 })
 
 export const myWallet = selector({

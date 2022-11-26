@@ -1,13 +1,12 @@
-import styled from 'styled-components'
 import * as React from 'react'
-import SelectUnstyled, {SelectUnstyledProps, selectUnstyledClasses, SelectOption} from '@mui/base/SelectUnstyled'
+import SelectUnstyled, {SelectUnstyledProps, selectUnstyledClasses} from '@mui/base/SelectUnstyled'
 import OptionUnstyled, {optionUnstyledClasses} from '@mui/base/OptionUnstyled'
 import PopperUnstyled from '@mui/base/PopperUnstyled'
 import {styled as styling} from '@mui/system'
-import useInput from '../../Hooks/useInput'
 import {useNavigate} from 'react-router-dom'
 import {useRecoilState, useSetRecoilState} from 'recoil'
 import {searchState} from '../atoms'
+import styled from 'styled-components'
 
 const blue = {
     100: '#DAECFF',
@@ -34,7 +33,7 @@ const grey = {
 const StyledButton = styling('button')(
     ({theme}) => `
     font-family: 'poppins', sans-serif;
-  font-size: 20px;
+  font-size: 20px;;
   box-sizing: border-box;
   height: 77px;
   min-width: 204px;
@@ -45,10 +44,10 @@ const StyledButton = styling('button')(
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
+
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 120ms;
-  z-index : 100
 
   &:hover {
     background: ${theme.palette.mode === 'dark' ? grey[800] : grey[50]};
@@ -98,7 +97,6 @@ const StyledOption = styling(OptionUnstyled)(
   padding: 8px;
   border-radius: 8px;
   cursor: default;
-  z-index : 500;
 
   &:last-of-type {
     border-bottom: none;
@@ -131,27 +129,33 @@ const StyledOption = styling(OptionUnstyled)(
 )
 
 const StyledPopper = styling(PopperUnstyled)`
-z-index : 500;
+    z-index: 1;
 `
 
-function CustomSelect(props: SelectUnstyledProps<string>) {
-    const slots: SelectUnstyledProps<string>['slots'] = {
+const Label = styled('label')(
+    ({theme}) => `
+  font-family: IBM Plex Sans, sans-serif;
+  font-size: 0.85rem;
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 400;
+  color: ${theme.palette.mode === 'dark' ? grey[400] : grey[700]};
+  `,
+)
+
+const CustomSelect = React.forwardRef(function CustomSelect<TValue extends {}>(
+    props: SelectUnstyledProps<TValue>,
+    ref: React.ForwardedRef<HTMLButtonElement>,
+) {
+    const slots: SelectUnstyledProps<TValue>['slots'] = {
         root: StyledButton,
         listbox: StyledListbox,
         popper: StyledPopper,
         ...props.slots,
     }
 
-    return <SelectUnstyled {...props} slots={slots} />
-}
-
-function renderValue(option: SelectOption<string> | null) {
-    if (option == null) {
-        return <span>Select chain</span>
-    }
-
-    return <span>{option.label}</span>
-}
+    return <SelectUnstyled {...props} ref={ref} slots={slots} />
+}) as <TValue extends {}>(props: SelectUnstyledProps<TValue> & React.RefAttributes<HTMLButtonElement>) => JSX.Element
 
 const Input = styled.input`
     width: 100%;
@@ -182,10 +186,10 @@ const Total = styled.form`
     /* margin-right: 105px; */
 `
 
-function SearchFirst() {
+export default function SearchSecond() {
     const [contractAddresss, setContractAddress] = React.useState<string | undefined>('')
     const [chain, setChain] = React.useState<string | undefined>('')
-    const setSearch = useSetRecoilState(searchState)
+    const [search, setSearch] = useRecoilState(searchState)
     const navigate = useNavigate()
 
     const onChangeContractAddress = (e: any) => {
@@ -212,7 +216,7 @@ function SearchFirst() {
         <>
             <Total onSubmit={onSubmit}>
                 <SelectBox>
-                    <CustomSelect id="chain" renderValue={renderValue} onChange={onChange}>
+                    <CustomSelect defaultValue={'eip155:1'} id="unnamed-select">
                         <StyledOption value={'eip155:1'}>Ethereum</StyledOption>
                         <StyledOption value={'eip155:137'}>Polygon</StyledOption>
                         <StyledOption value={'eip155:43114'}>Avalanche</StyledOption>
@@ -231,26 +235,3 @@ function SearchFirst() {
         </>
     )
 }
-
-export default SearchFirst
-
-//  const onSubmit = useCallback(
-//   (e: React.SyntheticEvent) => {
-//     e.preventDefault();
-//     navigate('/loading', {
-//       state: {
-//         myData: {
-//           userAddr: myAddress,
-//           name: name,
-//           univ: school,
-//           phonestring: phone,
-//           studentstring: studentNum,
-//         },
-//       },
-//       replace: true,
-//     });
-
-//     console.log(school, name, studentNum, phone, myAddress);
-//   },
-//   [school, name, studentNum, phone, myAddress]
-// );

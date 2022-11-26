@@ -3,7 +3,7 @@ import x from '../../assets/search/report.svg'
 
 const Card = styled.div`
     margin-top: 28px;
-    height: 264px;
+    height: 254px;
     background: linear-gradient(141.34deg, #f5f0ff 0%, #eff6fe 50.36%, #edfaf5 100%);
     border: 1px solid #e1e8f0;
     border-radius: 8px;
@@ -40,6 +40,9 @@ const Report = styled.div`
         position: absolute;
         top: 20px;
         left: 20px;
+        &:hover {
+            cursor: pointer;
+        }
     }
     button {
         padding-left: 25px;

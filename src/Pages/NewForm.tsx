@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import NewPageForm from '../Components/form/NewPageForm'
 
 const Title = styled.div`
-    margin-top: 125px;
+    margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
     width: 477px;

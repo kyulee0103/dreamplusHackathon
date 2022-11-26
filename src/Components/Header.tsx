@@ -70,7 +70,7 @@ function Header() {
                     </Link>
                 </Left>
                 <Right>
-                    <p>About</p>
+                    {/* <p>About</p> */}
                     <Btn onClick={onClick}>Add to wallet</Btn>
                 </Right>
             </Total>

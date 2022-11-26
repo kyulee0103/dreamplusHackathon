@@ -32,6 +32,7 @@ export const Home = () => {
 
                 const [result] = await window.ethereum.request({method: 'eth_requestAccounts'})
                 setWalletAddress({myWallet: result})
+                sessionStorage.setItem('myAddress', result)
                 setFinalFinished(true)
             } else {
                 console.log('Need to install MetaMask')
