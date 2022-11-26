@@ -4,8 +4,9 @@ import FirstRight from './FirstRight'
 import leftBottom from '../../assets/patterns/leftBottom.png'
 import leftTop from '../../assets/patterns/leftTop.png'
 import Pattern from '../../assets/patterns/Pattern.png'
-import {setAddress} from '../atoms'
+import {myWallet} from '../atoms'
 import {useRecoilValue} from 'recoil'
+import {useEffect} from 'react'
 
 const Total = styled.div`
     padding-top: 100px;
@@ -41,13 +42,21 @@ const Img3 = styled.img`
 `
 
 function First() {
-    const myAddress = useRecoilValue(setAddress)
-    console.log('myAddress' + myAddress)
+    // const wallet = useRecoilValue(myWallet)
+
+    // useEffect(()=> {
+
+    // }, [])
+
+    const onClick = () => {
+        console.log('wallet')
+    }
     return (
         <Total>
             <Img1 src={leftBottom} />
             <Img2 src={leftTop} />
             <Img3 src={Pattern} />
+            {/* <button onClick={onClick}>지갑 주소가 연결이 될까욤</button> */}
 
             <FirstLeft />
             <FirstRight />

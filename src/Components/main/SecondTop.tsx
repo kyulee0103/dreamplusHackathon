@@ -1,8 +1,10 @@
 import styled from 'styled-components'
+import SearchFirst from './SearchFirst'
 
 const Top = styled.div`
     margin-left: 100px;
     padding-top: 48px;
+    margin-right: 100px;
 `
 const Text = styled.div``
 const Small = styled.p`
@@ -57,10 +59,11 @@ function SecondTop() {
                 <Big>Search for projects or collections</Big>
                 <Big>you want to validate.</Big>
             </Text>
-            <Buttons>
+            {/* <Buttons>
                 <ChainBtn>Chain</ChainBtn>
                 <URLBtn>URL</URLBtn>
-            </Buttons>
+            </Buttons> */}
+            <SearchFirst />
         </Top>
     )
 }

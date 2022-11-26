@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import {useContext, useState} from 'react'
 import Here from '../../assets/connect/here.svg'
 import NotNow from '../../assets/connect/notnow.svg'
 import styled from 'styled-components'
@@ -8,25 +8,16 @@ import {ConnectButton, InstallFlaskButton, ReconnectButton} from './Buttons'
 import * as S from './StepStyle'
 import {Card} from './Card'
 import Step3 from './Step3'
-import {useSetRecoilState, useRecoilValue} from 'recoil'
+import {useSetRecoilState, useRecoilState} from 'recoil'
 import {setAddress} from '../atoms'
 
 const ErrorMessage = styled.div``
 
 export const Home = () => {
     const [state, dispatch] = useContext(MetaMaskContext)
+    const [finalFinished, setFinalFinished] = useState<boolean>(false)
 
-    const MyAddress = useRecoilValue(setAddress)
-    const SetmyAddress = useSetRecoilState(setAddress)
-    const AccountChangedHandler = (newAccount: string) => {
-        SetmyAddress((prev: any) => [
-            {
-                myWallet: newAccount,
-            },
-        ])
-        console.log('myAddress' + MyAddress)
-        console.log('setMyAddress' + SetmyAddress)
-    }
+    const [walletAddress, setWalletAddress] = useRecoilState(setAddress)
 
     const handleConnectClick = async () => {
         try {
@@ -39,14 +30,9 @@ export const Home = () => {
             if (state.isFlask) {
                 console.log('MetaMask Here!')
 
-                window.ethereum
-                    .request({method: 'eth_requestAccounts'})
-                    .then((result: any) => {
-                        AccountChangedHandler(result[0])
-                    })
-                    .catch((error: any) => {
-                        console.log(error.message)
-                    })
+                const [result] = await window.ethereum.request({method: 'eth_requestAccounts'})
+                setWalletAddress({myWallet: result})
+                setFinalFinished(true)
             } else {
                 console.log('Need to install MetaMask')
             }
@@ -56,6 +42,13 @@ export const Home = () => {
         }
     }
 
+    const handleGetAddress = async () => {
+        const [result] = await window.ethereum.request({method: 'eth_requestAccounts'})
+        setWalletAddress({myWallet: result})
+    }
+
+    console.log(walletAddress)
+
     const handlegetCheckClick = async () => {
         try {
             await getCheck()
@@ -64,6 +57,8 @@ export const Home = () => {
             dispatch({type: MetamaskActions.SetError, payload: e})
         }
     }
+
+    console.log(state)
 
     return (
         <>
@@ -145,7 +140,9 @@ export const Home = () => {
                                 />
                             </>
                         )}
-                        {state.isFlask && state.installedSnap && state.installedSnap.enabled && <Step3 />}
+                        {finalFinished && state.isFlask && state.installedSnap && state.installedSnap.enabled && (
+                            <Step3 />
+                        )}
                     </>
                 </S.Box>
             </S.ConnectRight>
