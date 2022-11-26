@@ -1,5 +1,7 @@
+import {useRecoilValue} from 'recoil'
 import styled from 'styled-components'
 import x from '../../assets/search/report.svg'
+import {searchState} from '../atoms'
 
 const Card = styled.div`
     margin-top: 28px;

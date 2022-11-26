@@ -5,6 +5,7 @@ import Main from './Pages/Main'
 import NewForm from './Pages/NewForm'
 import NotFound from './Pages/NotFound'
 import Search from './Pages/Search'
+import Success from './Pages/Succes'
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: 'new',
                 element: <NewForm />,
+            },
+            {
+                path: 'success',
+                element: <Success />,
             },
         ],
         errorElement: <NotFound />,

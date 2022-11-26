@@ -36,14 +36,35 @@ const Right = styled.div`
     align-items: center;
 `
 const Btn = styled.button`
-    width: 145px;
+    width: 180px;
     height: 40px;
     border-radius: 40px;
     padding: 12px 24px;
     color: white;
     background-color: #3cba79;
     border-radius: 40px;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    margin-left: 60px;
+    border: 0px;
+    transition: all 0.3s ease;
+    &:hover {
+        cursor: pointer;
+        background-color: #1f384f;
+    }
+`
+
+const Btn2 = styled.button`
+    width: 130px;
+    height: 40px;
+    border-radius: 40px;
+    padding: 12px 24px;
+    color: white;
+    background-color: #3cba79;
+    border-radius: 40px;
+    letter-spacing: -0.01em;
     font-weight: 500;
     font-size: 16px;
     line-height: 100%;
@@ -58,6 +79,8 @@ const Btn = styled.button`
 
 function Header() {
     const navigate = useNavigate()
+    const address = sessionStorage.getItem('myAddress')
+    console.log(address)
     const onClick = () => {
         navigate('/connect')
     }
@@ -70,8 +93,11 @@ function Header() {
                     </Link>
                 </Left>
                 <Right>
-                    {/* <p>About</p> */}
-                    <Btn onClick={onClick}>Add to wallet</Btn>
+                    {address !== null ? (
+                        <Btn2 onClick={onClick}>Connected</Btn2>
+                    ) : (
+                        <Btn onClick={onClick}>Add to MetaMask</Btn>
+                    )}
                 </Right>
             </Total>
         </header>

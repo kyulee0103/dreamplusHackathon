@@ -76,9 +76,9 @@ const StyledListbox = styling('ul')(
     ({theme}) => `
     z-index : 100;
     font-family: 'poppins', sans-serif;
-  font-size: 0.875rem;
+    font-size: 18px;
   box-sizing: border-box;
-  padding: 6px;
+  padding: 8px;
   margin: 12px 0;
   min-width: 204px;
   border-radius: 12px;
@@ -94,7 +94,7 @@ const StyledListbox = styling('ul')(
 const StyledOption = styling(OptionUnstyled)(
     ({theme}) => `
   list-style: none;
-  padding: 8px;
+  padding: 12px;
   border-radius: 8px;
   cursor: default;
 
@@ -135,7 +135,7 @@ const StyledPopper = styling(PopperUnstyled)`
 const Label = styled('label')(
     ({theme}) => `
   font-family: IBM Plex Sans, sans-serif;
-  font-size: 0.85rem;
+  font-size: 20px;
   display: block;
   margin-bottom: 4px;
   font-weight: 400;
@@ -166,12 +166,15 @@ const Input = styled.input`
     margin-left: 10px;
     border: 1px solid #cad1d5;
     border-radius: 10px;
+    color: #1f284f;
+    letter-spacing: 0.02em;
+
     font-family: 'poppins', sans-serif;
     &::placeholder {
-        color: #b7c5cc;
+        color: #1f284f;
         font-weight: 400;
         font-size: 20px;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.02em;
         font-family: 'poppins', sans-serif;
     }
 `
@@ -191,6 +194,7 @@ export default function SearchSecond() {
     const [chain, setChain] = React.useState<string | undefined>('')
     const [search, setSearch] = useRecoilState(searchState)
     const navigate = useNavigate()
+    console.log(search)
 
     const onChangeContractAddress = (e: any) => {
         setContractAddress(e.target.value)
@@ -216,20 +220,27 @@ export default function SearchSecond() {
         <>
             <Total onSubmit={onSubmit}>
                 <SelectBox>
-                    <CustomSelect defaultValue={'eip155:1'} id="unnamed-select">
+                    <CustomSelect
+                        defaultValue={search.whichChain != '' ? search.whichChain : 'eip155:1'}
+                        id="unnamed-select"
+                        onChange={onChange}
+                    >
                         <StyledOption value={'eip155:1'}>Ethereum</StyledOption>
                         <StyledOption value={'eip155:137'}>Polygon</StyledOption>
+                        <StyledOption value={'eip155:8217'}>Klaytn</StyledOption>
                         <StyledOption value={'eip155:43114'}>Avalanche</StyledOption>
+                        <StyledOption value={'eip155:10'}>Optimism</StyledOption>
                     </CustomSelect>
                 </SelectBox>
                 <Input
                     value={contractAddresss}
+                    autoComplete="off"
                     onChange={onChangeContractAddress}
                     type="input"
                     name="contractAddresss"
                     id="contractAddresss"
                     required
-                    placeholder="Paste the address"
+                    placeholder={search.content != '' ? search.content : 'Paste the address'}
                 />
             </Total>
         </>

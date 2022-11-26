@@ -1,5 +1,7 @@
 import {useNavigate} from 'react-router-dom'
+import {useRecoilValue} from 'recoil'
 import styled from 'styled-components'
+import {searchState} from '../atoms'
 
 const Total = styled.div`
     height: 298px;
@@ -46,9 +48,15 @@ const Btn = styled.button`
 `
 
 function AddAnother() {
+    const search = useRecoilValue(searchState)
     const navigate = useNavigate()
     const onClick = () => {
-        navigate('/new')
+        navigate('/new', {
+            state: {
+                chainId: search.whichChain,
+                address: search.content,
+            },
+        })
     }
     return (
         <Total>

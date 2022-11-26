@@ -77,9 +77,9 @@ const StyledListbox = styling('ul')(
     ({theme}) => `
     z-index : 100;
     font-family: 'poppins', sans-serif;
-  font-size: 0.875rem;
+    font-size: 18px;
   box-sizing: border-box;
-  padding: 6px;
+  padding: 8px;
   margin: 12px 0;
   min-width: 204px;
   border-radius: 12px;
@@ -95,7 +95,7 @@ const StyledListbox = styling('ul')(
 const StyledOption = styling(OptionUnstyled)(
     ({theme}) => `
   list-style: none;
-  padding: 8px;
+  padding: 12px;
   border-radius: 8px;
   cursor: default;
   z-index : 500;
@@ -215,10 +215,13 @@ function SearchFirst() {
                     <CustomSelect id="chain" renderValue={renderValue} onChange={onChange}>
                         <StyledOption value={'eip155:1'}>Ethereum</StyledOption>
                         <StyledOption value={'eip155:137'}>Polygon</StyledOption>
+                        <StyledOption value={'eip155:8217'}>Klaytn</StyledOption>
                         <StyledOption value={'eip155:43114'}>Avalanche</StyledOption>
+                        <StyledOption value={'eip155:10'}>Optimism</StyledOption>
                     </CustomSelect>
                 </SelectBox>
                 <Input
+                    autoComplete="off"
                     value={contractAddresss}
                     onChange={onChangeContractAddress}
                     type="input"
@@ -233,24 +236,3 @@ function SearchFirst() {
 }
 
 export default SearchFirst
-
-//  const onSubmit = useCallback(
-//   (e: React.SyntheticEvent) => {
-//     e.preventDefault();
-//     navigate('/loading', {
-//       state: {
-//         myData: {
-//           userAddr: myAddress,
-//           name: name,
-//           univ: school,
-//           phonestring: phone,
-//           studentstring: studentNum,
-//         },
-//       },
-//       replace: true,
-//     });
-
-//     console.log(school, name, studentNum, phone, myAddress);
-//   },
-//   [school, name, studentNum, phone, myAddress]
-// );
