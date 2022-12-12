@@ -49,7 +49,3 @@ Validator의 추후 3개월 서비스 제공 계획은 다음과 같습니다.
 ## TEAM dreampluz 🔥
 > 만약 당신이 우리의 팀명을 dreamplus가 아닌가 생각하셨다면, 당신은 잠재적인 사기 피해자입니다. 
 
-### 🫶 Members
-
-<img width="1145" alt="스크린샷 2022-11-27 오전 5 18 13" src="https://user-images.githubusercontent.com/95950146/204107584-b1ef48ab-95b1-4174-981c-f80829b97ae8.png">
-
